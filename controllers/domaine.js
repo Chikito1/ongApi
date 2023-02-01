@@ -1,0 +1,1 @@
+const Domaine = require('../models/domaine');
