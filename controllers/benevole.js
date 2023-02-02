@@ -1,20 +1,5 @@
-const Benevole = require('../models/contribution/benevole');
-const fs = require('fs');
+const benevole = require('../models/contribution/benevole')
 
-
-exports.create = (req, res, next) => {
-  const benevoleObject = JSON.parse(req.body.benevole);
-  delete benevoleObject._id;
-  delete benevoleObject._userId;
-  const benevole = new Benevole({
-      ...benevoleObject,
-      userId: req.auth.userId
-  });
-
-  thing.save()
-  .then(() => { res.status(201).json({message: 'Objet enregistré !'})})
-  .catch(error => { res.status(400).json( { error })})
-};
 
 exports.createBenevole = (req, res, next) => {
   const benevole = new Benevole({
@@ -39,3 +24,4 @@ exports.createBenevole = (req, res, next) => {
     }
   );
 };
+
