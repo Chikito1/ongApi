@@ -25,7 +25,7 @@ exports.createBenevole = (req, res, next) => {
     tel: req.body.tel,
     userId: req.body.userId
   });
-  thing.save().then(
+  benevole.save().then(
     () => {
       res.status(201).json({
         message: 'Post saved successfully!'
