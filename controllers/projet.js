@@ -5,3 +5,6 @@ exports.getAllProjet = (req, res)=>{
 exports.getOneProjet  = (req, res)=>{
     return res.status(200).json({'data':"no data"})
 }
+
+
+module.exports = router;
