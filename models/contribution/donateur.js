@@ -12,8 +12,6 @@ const donateurSchema = mongoose.Schema({
     ref:{type:String, require: true, unique : true },
     date: reqStr,
     statut: reqStr
-    
-   
 })
 
 donateurSchema.plugin(uniqueValidator);

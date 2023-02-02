@@ -24,4 +24,3 @@ exports.createBenevole = (req, res, next) => {
     }
   );
 };
-

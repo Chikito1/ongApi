@@ -1,7 +1,7 @@
 const actucltr = require('../models/actu');
 
 
-const createActu = ((req, res) => {
+exports.createActu = ((req, res) => {
     const newArticle = {
         id : actucltr.length +1,
         titre: req.body.titre,
@@ -16,3 +16,10 @@ const createActu = ((req, res) => {
     res.status(201).json(newArticle)
 })
 
+exports.readOneactu = (rq, res)=>{
+    return res.status(201).json({})
+}
+
+exports.readAllactu = (rq, res)=>{
+    return req.status(201).json{'detail':"acture create"}
+}
