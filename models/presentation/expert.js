@@ -9,4 +9,4 @@ const expertSchema = mongoose.Schema({
     date_ajout: reqStr
 })
 
-module.exports = ('Expert', expertSchema);
+module.exports =mongoose.model('Expert', expertSchema);
