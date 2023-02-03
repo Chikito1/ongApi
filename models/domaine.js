@@ -6,9 +6,11 @@ const prestationSchema = mongoose.Schema({
     titre : reqStr,
     description: reqStr,
     image_url: reqStr, 
-    date_ajout: reqStr,
-    catégories: reqStr
-})
+    date_ajout: mongoose.SchemaTypes.date_ajout,
+    categories: reqStr
+},
+ {timestamps: true}
+)
 
 module.exports = ('Prestation', prestationSchema);
 

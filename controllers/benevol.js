@@ -1,14 +1,51 @@
+const Benevole = require('../models/contribution/benevole');
+
+
 exports.getAllBenevol = async (req, res)=>{
-    return res.status(200).json({})
+    Benevole.find().then(
+        (benevole) => {
+          res.status(201).json(benevole);
+        }
+      ).catch(
+        (error) => {
+          res.status(403).json({
+            error: error
+          });
+        }
+      ); 
+
 }
 exports.getOneBenevol = async (req, res)=>{
-    res.status(200).json({})
-}
+    Benevole.findOne({
+        _id: req.params.id
+      }).then(
+        (benevole) => {
+          res.status(201).json(benevole);
+        }
+      ).catch(
+        (error) => {
+          res.status(404).json({
+            error: error
+          });
+        }
+      );
+    };
+
+
 
 exports.createBenevol = async  (req, res)=>{
-    return res.status(201).json({"data":"no"})
+    const newBenevol = {  
+        nom: req.body.nom,
+        prenoms: req.body.sous_titre,
+        adresse: req.body.adresse,
+        email: req.body.email,
+        tel: req.body.tel,
+    }
+    newBenevol.save()
+    .then((data)=> res.status(201).json({data}))
+    .catch(error=>res.status(403).json({error}))
+    
 }
 
 
 
-module.exports = router;

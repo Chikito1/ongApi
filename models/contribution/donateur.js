@@ -10,7 +10,7 @@ const donateurSchema = mongoose.Schema({
     pays: reqStr, 
     montant:{type: Number, require:true},
     ref:{type:String, require: true, unique : true },
-    date: reqStr,
+    date: mongoose.SchemaTypes.date,
     statut: reqStr
 })
 

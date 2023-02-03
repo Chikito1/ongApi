@@ -47,7 +47,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.use('actu', actuRouter)
+app.use('actu/', actuRouter)
 
 
 module.exports = app;
