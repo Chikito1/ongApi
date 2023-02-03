@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const actuRouter = require('./routes/actu')
 
 mongoose.set('strictQuery', false);
 mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2",
@@ -27,12 +28,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+
+app.use("/actu", actuRouter)
+
+app.get('/', (req, res) => {
+  res.send('Welcome to API APP')
+})
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -44,5 +52,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

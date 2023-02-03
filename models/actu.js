@@ -11,5 +11,5 @@ const articleSchema = mongoose.Schema({
     auteur: reqStr
 })
 
-module.exports = ('Article', articleSchema);
+module.exports = mongoose.model('Article', articleSchema);
 

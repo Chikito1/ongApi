@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const actucltr = require('../controllers/actu')
 
-const upload = require('../middlewares/uploader')
+const upload = require('../middlewares/uploader').fields([{name:"image_url", maxCount:1}]);
 
 router.route('/')
     .get(actucltr.readAllactu)
