@@ -12,4 +12,4 @@ const benevoleSchema = mongoose.Schema({
 })
 
 benevoleSchema.plugin(uniqueValidator);
-module.exports = ('Benevole', benevoleSchema);
+module.exports =mongoose.model('Benevole', benevoleSchema);

@@ -15,4 +15,4 @@ const donateurSchema = mongoose.Schema({
 })
 
 donateurSchema.plugin(uniqueValidator);
-module.exports = ('Donateur', donateurSchema);
+module.exports = mongoose.model('Donateur', donateurSchema);

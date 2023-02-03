@@ -9,4 +9,4 @@ const projetSchema = mongoose.Schema({
     date_ajout: reqStr
 })
 
-module.exports = ('Projet', projetSchema);
+module.exports =mongoose.model('Projet', projetSchema);

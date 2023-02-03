@@ -10,5 +10,5 @@ const prestationSchema = mongoose.Schema({
     catégories: reqStr
 })
 
-module.exports = ('Prestation', prestationSchema);
+module.exports =mongoose.model('Prestation', prestationSchema);
 

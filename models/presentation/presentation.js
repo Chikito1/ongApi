@@ -10,4 +10,4 @@ const presentationSchema = mongoose.Schema({
     date_ajout: reqStr
 })
 
-module.exports = ('Presentation', presentationSchema);
+module.exports = mongoose.model('Presentation', presentationSchema);
