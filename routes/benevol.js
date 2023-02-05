@@ -7,10 +7,10 @@ const upload = require('../middlewares/uploader')
 
 router.route('/')
     .get(benevolCltr.getAllBenevol)
-    .post(upload, benevolCltr.createBenevol)
+    
 
 router.route('/:id').get(benevolCltr.getOneBenevol)
 
 
 
-module.exports = router;
+module.exports = router ;

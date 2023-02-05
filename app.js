@@ -6,6 +6,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const actuRouter = require('./routes/actu')
+const benevoleRouter = require('./routes/benevol')
+const domaineRouter = require('./routes/domaine')
+const donateurRouter = require('./routes/donateur')
+const expertRouter = require('./routes/expert')
+const presentationRouter = require('./routes/presentation')
+const projetRouter = require('./routes/projet')
 
 mongoose.set('strictQuery', false);
 mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2",
@@ -30,6 +36,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use("/actu", actuRouter)
+app.use("/benevole", benevoleRouter)
+app.use("/domaine", domaineRouter)
+app.use("/donateur", donateurRouter)
+app.use("/expert", expertRouter)
+app.use("/presentation", presentationRouter)
+app.use("/projets", projetRouter)
 
 app.get('/', (req, res) => {
   res.send('Welcome to API APP')

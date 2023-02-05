@@ -19,10 +19,10 @@ exports.readOneactu = (req, res)=>{
         .catch(err=> res.status(403).json({err}))
 }
 
-exports.readAllactu = (rq, res)=>{
+exports.readAllactu = (req, res)=>{
     Actu.find()
     .then(data => res.status(201).json({data}))
-    .catch(error=>res.status(403).json({eror}))   
+    .catch(error=>res.status(403).json({error}))   
 }
 
 exports.updateActu = (req, res)=>{
