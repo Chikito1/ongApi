@@ -5,6 +5,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
+const adminRouter = require("./routes/admin.router")
 const actuRouter = require('./routes/actu')
 const benevoleRouter = require('./routes/benevol')
 const domaineRouter = require('./routes/domaine')
@@ -42,6 +44,7 @@ app.use("/donateur", donateurRouter)
 app.use("/expert", expertRouter)
 app.use("/presentation", presentationRouter)
 app.use("/projets", projetRouter)
+app.use("/admin", adminRouter)
 
 app.get('/', (req, res) => {
   res.send('Welcome to API APP')
@@ -65,5 +68,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.use(adminRouter)
 
 module.exports = app;
