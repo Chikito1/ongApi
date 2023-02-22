@@ -1,4 +1,5 @@
 const Actu = require('../models/actu');
+const Actu = require('../models/actu');
 
 
 exports.createActu = (req, res) => {

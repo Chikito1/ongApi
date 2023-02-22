@@ -12,5 +12,5 @@ const prestationSchema = mongoose.Schema({
  {timestamps: true}
 )
 
-module.exports = ('Prestation', prestationSchema);
+module.exports =mongoose.model('Prestation', prestationSchema);
 
