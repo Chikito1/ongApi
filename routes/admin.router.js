@@ -40,4 +40,5 @@ null, {
     saveUninitialized:true
 })
 
+adminJs.watch()
 module.exports = adminRouter
