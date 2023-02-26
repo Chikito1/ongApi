@@ -3,20 +3,9 @@ const Article = require('../models/actu')
 exports.createActu = (req, res) => {
     delete req.body._id;
     const actu = req.body
-    file="avatar.jpg"
-    if(req.files){
-        Object.keys(req.files).forEach(key => {
-            if(req.files[key][0].filename){
-                file ='images/' + req.files[key][0].filename;
-            }
-        })
-    }
 
-    const newArticle = Article({
-        ...actu,
-        image_url: file})
-    newArticle.save().then(data => {res.status(201).json({data});
-    })
+    Article({...actu}).save()
+    .then(data => {res.status(201).json({data});})
     .catch(error => res.status(403).json({error}))
     
 }
@@ -39,17 +28,9 @@ exports.readAllactu = (req, res)=>{
 
 exports.updateActu =async (req, res)=>{
     const actu = req.body
-    let file ="avatar.jpg"
-    if(req.files){
-        Object.keys(req.files).forEach(key => {
-            if(req.files[key][0].filename){
-                file ='images/' + req.files[key][0].filename;
-            }
-        })
-    }
-
+  
     Article.updateOne({_id: req.params.id},
-        {...actu, image_url:file, _id: req.params.id})
+        {...actu, _id: req.params.id})
         .then(async()=>{
             let data = await Article.findOne({_id:req.params.id})
             const  {_id, titre, sous_titre, contenu, auteur,image_url, date_ajout} = data

@@ -14,13 +14,17 @@ exports.getOneBenevol = async (req, res)=>{
 
 exports.createBenevol = async  (req, res)=>{
     delete req.body._id;
-    const benevol = res.body
+    const benevol = req.body
     file ="avatar.jpg"
-    Object.keys(req.files).forEach(key => {
-        if(key ==='image_url' ){
-            file ='images/' + req.files[key][0].filename;
-        }
-    })
+    
+    if(req.files){
+        Object.keys(req.files).forEach(key => {
+            if(key ==='image_url' ){
+                file ='images/' + req.files[key][0].filename;
+            }
+        })
+    }
+
     const newBenevole = Benevole({
         ...benevol, image_url:file})
 
