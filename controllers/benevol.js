@@ -15,18 +15,9 @@ exports.getOneBenevol = async (req, res)=>{
 exports.createBenevol = async  (req, res)=>{
     delete req.body._id;
     const benevol = req.body
-    file ="avatar.jpg"
-    
-    if(req.files){
-        Object.keys(req.files).forEach(key => {
-            if(key ==='image_url' ){
-                file ='images/' + req.files[key][0].filename;
-            }
-        })
-    }
 
     const newBenevole = Benevole({
-        ...benevol, image_url:file})
+        ...benevol})
 
     newBenevole.save()
     .then(data => {res.status(201).json({error:false, data})})
@@ -35,13 +26,12 @@ exports.createBenevol = async  (req, res)=>{
 
 
 exports.updateBenevole =async (req, res)=>{
-    const benevole = res.body
+    const benevole = req.body
 
- Benevole.updateOne({_id: req.params.id},
-        {...benevole, _id: req.params.id})
+ Benevole.updateOne({_id: req.params.id}, {...benevole, _id: req.params.id})
         .then(async()=>{
-            let data = await Actu.findOne({_id:req.params.id})
-            res.status(200).json({error:false, data: data})
+            let data = await Benevole.findOne({_id:req.params.id})
+            res.status(201).json({error:false, data: data})
         })
         .catch(error => res.status(500).json({error:true,msg:error.message}))
 }
@@ -54,6 +44,7 @@ exports.deleteBenevole = async (req, res)=>{
     if(!benevole){
         return res.status(404).json({error:true, msg: 'objet non trouvé !'});
     }
+
     Benevole.deleteOne({_id:id})
         .then(()=>res.status(200)
             .json({error:false, msg:'objet benevole suprimé !'}))
