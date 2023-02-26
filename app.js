@@ -1,10 +1,11 @@
 var createError = require('http-errors');
-var mongoose = require('mongoose');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const AppDB = require('./database')
 
 const adminRouter = require("./routes/admin.router")
 const actuRouter = require('./routes/actu')
@@ -15,24 +16,19 @@ const expertRouter = require('./routes/expert')
 const presentationRouter = require('./routes/presentation')
 const projetRouter = require('./routes/projet')
 
-mongoose.set('strictQuery', false);
-mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2",
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
-  mongoose.set('strictQuery', false);
 
+  /**
+   * database connexion
+   * */ 
+AppDB.connect(process.env.DB_URI)
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -49,10 +45,12 @@ app.use("/admin", adminRouter)
 app.get('/', (req, res) => {
   res.send('Welcome to API APP')
 })
+  
+app.use(adminRouter)
 
-
-
+// app.use(cookieParser());
 // catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
@@ -65,9 +63,8 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  return res.json({error:true, "msg":res.locals.message});
 });
 
-app.use(adminRouter)
 
 module.exports = app;

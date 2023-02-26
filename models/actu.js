@@ -6,8 +6,8 @@ const articleSchema = mongoose.Schema({
     titre : reqStr,
     sous_titre : reqStr,
     contenu: reqStr,
-    image_url: reqStr, 
-    date_ajout: reqStr,
+    image_url:{type: String, required: false, default:"avatar.jpg"}, 
+    date_ajout: {type: Date, required: false, default:"02-26-2023"},
     auteur: reqStr
 })
 

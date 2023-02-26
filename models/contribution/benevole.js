@@ -8,7 +8,7 @@ const benevoleSchema = mongoose.Schema({
     prenoms : reqStr,
     adresse: reqStr, 
     email: {type:String, require: true, unique : true },
-    tel : {type : Number, require: true}
+    tel : {type : String, require: true}
 })
 
 benevoleSchema.plugin(uniqueValidator);

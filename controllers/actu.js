@@ -1,12 +1,20 @@
-const Actu = require('../models/actu');
-
+const Article = require('../models/actu')
 
 exports.createActu = (req, res) => {
     delete req.body._id;
+    const actu = req.body
+    file="avatar.jpg"
+    if(req.files){
+        Object.keys(req.files).forEach(key => {
+            if(req.files[key][0].filename){
+                file ='images/' + req.files[key][0].filename;
+            }
+        })
+    }
 
-    const newArticle = ({
-        ...req.body,
-        image_url: req.body.image_url})
+    const newArticle = Article({
+        ...actu,
+        image_url: file})
     newArticle.save().then(data => {res.status(201).json({data});
     })
     .catch(error => res.status(403).json({error}))
@@ -14,34 +22,52 @@ exports.createActu = (req, res) => {
 }
 
 exports.readOneactu = (req, res)=>{
-    Actu.findOne({_id:req.params.id})
-        .then(data=> res.status(201).json({data}))
-        .catch(err=> res.status(403).json({err}))
+    Article.findOne({_id:req.params.id})
+        .then(data=>{
+        const  {_id, titre, sous_titre, contenu, auteur,image_url, date_ajout} = data
+
+            res.status(201).json({error:false, data: {_id, titre, sous_titre, contenu, auteur,image_url, date_ajout, }})
+        })
+        .catch(err=> res.status(403).json({error:true, msg: err.message}))
 }
 
 exports.readAllactu = (req, res)=>{
-    Actu.find()
+    Article.find()
     .then(data => res.status(201).json({data}))
     .catch(error=>res.status(403).json({error}))   
 }
 
-exports.updateActu = (req, res)=>{
-    Actu.updateOne({_id: req.params.id},
-        {...req.body, _id: req.params.id})
-        .then(user => res.status(httpStatus.OK).json({user}))
-        .catch(error => res.status(httpStatus.INTERNAL_SERVER_ERROR).json({error}))
+exports.updateActu =async (req, res)=>{
+    const actu = req.body
+    let file ="avatar.jpg"
+    if(req.files){
+        Object.keys(req.files).forEach(key => {
+            if(req.files[key][0].filename){
+                file ='images/' + req.files[key][0].filename;
+            }
+        })
+    }
+
+    Article.updateOne({_id: req.params.id},
+        {...actu, image_url:file, _id: req.params.id})
+        .then(async()=>{
+            let data = await Article.findOne({_id:req.params.id})
+            const  {_id, titre, sous_titre, contenu, auteur,image_url, date_ajout} = data
+            res.status(201).json({error:false, data: {_id, titre, sous_titre, contenu, auteur,image_url, date_ajout}})
+        })
+        .catch(error => res.status(500).json({error}))
 }
 
 exports.deleteActu = async (req, res)=>{
     const {id} = req.params;
 
-    const actu = await Actu.findById(id);
+    const actu = await Article.findById(id);
 
     if(!actu){
-        return res.status(404).json({message: 'article non trouvé !'});
+        return res.status(404).json({error:true, msg: 'article non trouvé !'});
     }
 
-    Actu.deleteOne({_id:id})
-        .then(()=>res.status(200).json({message:'acticle supprimé'}))
-        .catch(error => res.status(httpStatus.NOT_FOUND).json({error}))
+    Article.deleteOne({_id:id})
+        .then(()=>res.status(200).json({error:false, msg:'acticle supprimé'}))
+        .catch(error => res.status(404).json({error:true, msg:error}))
 }
